@@ -11,6 +11,7 @@
 public class CircuitFrame extends javax.swing.JFrame {
 
     RCCircuit sliders;
+    Graph graph;
     
     /**
      * Creates new form CircuitFrame
@@ -19,6 +20,8 @@ public class CircuitFrame extends javax.swing.JFrame {
         initComponents();
         sliders = new RCCircuit();
         circuitPanel.add(sliders);
+        graph = new Graph();
+        graphPanel.add(graph);
     }
 
     /**
@@ -31,10 +34,14 @@ public class CircuitFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         circuitPanel = new javax.swing.JPanel();
+        graphPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        circuitPanel.setLayout(new java.awt.GridLayout());
+        circuitPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        graphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        graphPanel.setLayout(new java.awt.GridLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,14 +50,18 @@ public class CircuitFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(circuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(574, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(circuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(circuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,5 +104,6 @@ public class CircuitFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel circuitPanel;
+    private javax.swing.JPanel graphPanel;
     // End of variables declaration//GEN-END:variables
 }
