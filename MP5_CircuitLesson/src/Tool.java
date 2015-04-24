@@ -9,27 +9,41 @@
  * @author Andrew
  */
 public class Tool {
-    //static final int WIRE = 1;
-    //static final int RESISTOR = 2;
-    //static final int BATTERY = 3;
-    //static final int CAPACITOR = 4;
+    static enum Type
+    {
+        VOLTMETER, AMMETER, OSCILISCOPE;
+    }
     
-    int value;
+    private Type type;
+    private double value;
+    private Node node;
     
-    Tool()
+    Tool(Type t)
     {
         value = 0;
+        type = t;
     }
     
     public String display()
     {
-        if(value == -1)
+        if(value < 0)
             return "ERROR";
         return "" + value;
     }
     
-    public void setValue(Node part)
+    public void getValue(Node part)
     {
-        
+        node = part;
+        if(type == Type.VOLTMETER)
+            value = part.getVolts();
+        else if(type == Type.AMMETER)
+            value = part.getCurrent();
+        else if(type == Type.OSCILISCOPE)
+            value = 0;
+    }
+    
+    public Node getNode()
+    {
+        return node;
     }
 }

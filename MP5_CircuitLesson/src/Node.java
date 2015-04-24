@@ -9,46 +9,41 @@
  * @author Andrew
  */
 public class Node {
-    static enum Type{
+    /*static enum Type{
         WIRE, RESISTOR, BATTERY, CAPACITOR;
-    }
-    //WIRE = 1;
-    //RESISTOR = 2;
-    //BATTERY = 3;
-    //CAPACITOR = 4;
+    }*/
     
     private int volts;
     private int resistance;
-    Type type;
-    //osciliscope vars?
+    //public Type type;
     
-    Node(Type thing, int voltValue, int resistValue/*, osciliscope vars*/)
+    
+    Node(/*Type thing,*/ int voltValue, int resistValue)
     {
-        type = thing;
+        //type = thing;
         volts = voltValue;
         resistance = resistValue;
-        //osciliscope?
     }
     
-    public Type getType()
+    /*public Type getType()
     {
         return type;
-    }
+    }*/
     
     public int getVolts()
     {
         return volts;
     }
     
+    public double getCurrent()
+    {
+        return volts / resistance;
+    }
+    
     public int getResistance()
     {
         return resistance;
     }
-    
-    /*public void graphOsciliscope()
-    {
-        ???
-    }*/
     
     public void setVolts(int v)
     {
