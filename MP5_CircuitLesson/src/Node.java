@@ -13,7 +13,7 @@ public class Node {
         WIRE, RESISTOR, BATTERY, CAPACITOR;
     }*/
     
-    private int volts;
+    private double volts;
     private int resistance;
     //public Type type;
     
@@ -30,7 +30,7 @@ public class Node {
         return type;
     }*/
     
-    public int getVolts()
+    public double getVolts()
     {
         return volts;
     }
@@ -45,7 +45,7 @@ public class Node {
         return resistance;
     }
     
-    public void setVolts(int v)
+    public void setVolts(double v)
     {
         volts = v;
     }

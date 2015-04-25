@@ -8,12 +8,12 @@
  *
  * @author Andrew
  */
-public class RCCircuit extends javax.swing.JPanel {
+public class Sliders extends javax.swing.JPanel {
 
     /**
      * Creates new form RCCircuit
      */
-    public RCCircuit() {
+    public Sliders() {
         initComponents();
     }
 
@@ -32,8 +32,6 @@ public class RCCircuit extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        voltageSlider.setValue(50);
 
         jLabel1.setText("Voltage:");
 
