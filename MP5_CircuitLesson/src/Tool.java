@@ -31,18 +31,23 @@ public class Tool {
         return "" + value;
     }
     
-    public void getValue(Element part)
+    public void getValue()
     {
-        element = part;
         if(type == Type.VOLTMETER)
-            value = part.getVolts();
+            value = element.getVolts();
         else if(type == Type.AMMETER)
-            value = part.getCurrent();
+            value = element.getCurrent();
         else if(type == Type.OSCILISCOPE)
             value = 0;
     }
     
-    public Element getNode()
+    public void setElement(Element e)
+    {
+        element = e;
+        getValue();
+    }
+    
+    public Element getElement()
     {
         return element;
     }

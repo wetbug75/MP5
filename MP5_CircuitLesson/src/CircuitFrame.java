@@ -24,9 +24,16 @@ public class CircuitFrame extends javax.swing.JFrame {
     boolean voltIsSelected;
     boolean ammIsSelected;
     boolean oscIsSelected;
+    Tool voltmeter;
+    Tool ammeter;
+    Tool osciliscope;
 
     public CircuitFrame() {
         initComponents();
+        
+        voltmeter = new Tool(Tool.Type.VOLTMETER);
+        ammeter = new Tool(Tool.Type.AMMETER);
+        osciliscope = new Tool(Tool.Type.OSCILISCOPE);
         
         voltIsSelected = false;
         ammIsSelected = false;
@@ -190,6 +197,12 @@ public class CircuitFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void updateDisplay()
+    {
+        voltageLabel.setText(voltmeter.display());
+        currentLabel.setText(ammeter.display());
+    }
+    
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
         if(currentFile > 0)
         {
@@ -253,6 +266,7 @@ public class CircuitFrame extends javax.swing.JFrame {
                 {
                     thePanel.oscX = elements[currentFile][i].getXCoordinate() - 8;
                     thePanel.oscY = elements[currentFile][i].getYCoordinate() - 8;
+                    osciliscope.setElement(elements[currentFile][i]);
                     i = MAX_ELEMENTS;
                 }
             }
@@ -265,6 +279,7 @@ public class CircuitFrame extends javax.swing.JFrame {
                 {
                     thePanel.ammX = elements[currentFile][i].getXCoordinate() - 8;
                     thePanel.ammY = elements[currentFile][i].getYCoordinate() - 8;
+                    ammeter.setElement(elements[currentFile][i]);
                     i = MAX_ELEMENTS;
                 }
             }
@@ -277,6 +292,7 @@ public class CircuitFrame extends javax.swing.JFrame {
                 {
                     thePanel.voltX = elements[currentFile][i].getXCoordinate() - 8;
                     thePanel.voltY = elements[currentFile][i].getYCoordinate() - 8;
+                    voltmeter.setElement(elements[currentFile][i]);
                     i = MAX_ELEMENTS;
                 }
             }
@@ -285,6 +301,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         voltIsSelected = false;
         ammIsSelected = false;
         oscIsSelected = false;
+        updateDisplay();
     }//GEN-LAST:event_circuitPanelMouseReleased
   
     public boolean shouldShiftPosition(int toolX, int toolY, int elementX, int elementY)
