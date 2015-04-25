@@ -25,7 +25,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         graph = new Graph();
         graphPanel.add(graph);
         
-        ImageIcon image = new ImageIcon(getClass().getResource("/imagePackage/simpleRCCircuit.png")); 
+        ImageIcon image = new ImageIcon(getClass().getResource("/imagePackage/parallel_circuit.png")); 
         JLabel rcImageLabel = new JLabel(image);
         circuitPanel.add(rcImageLabel);
     }
