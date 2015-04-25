@@ -13,19 +13,18 @@
 public class CircuitFrame extends javax.swing.JFrame {
 
     Graph graph;
-    CircuitPanel thePanel;
-    String[] fileNames; 
+    CircuitPanel thePanel;//panel containing Elements and Tools
+    String[] fileNames; //contains file names for all circuit images
+    Element[][] elements;
     static final int NUM_CIRCUITS = 3;
     static final int TOOL_WIDTH = 143;
     static final int TOOL_HEIGHT = 77;
+    static final int MAX_ELEMENTS = 5;
     int currentFile;
     boolean voltIsSelected;
     boolean ammIsSelected;
     boolean oscIsSelected;
-    
-    /**
-     * Creates new form CircuitFrame
-     */
+
     public CircuitFrame() {
         initComponents();
         
@@ -44,6 +43,31 @@ public class CircuitFrame extends javax.swing.JFrame {
         currentFile = 0;
         thePanel = new CircuitPanel(fileNames[currentFile]);
         circuitPanel.add(thePanel);
+        
+        elements = new Element[NUM_CIRCUITS][MAX_ELEMENTS];
+        for(int x = 0; x < NUM_CIRCUITS; x++)
+        {
+            for(int y = 0; y < MAX_ELEMENTS; y++)
+                elements[x][y] = null;
+        }
+        //first page's Element initializations
+        elements[0][0] = new Element(10, 0, 39 + thePanel.getCircuitXDistance(), 124 + thePanel.getCircuitYDistance());//battery
+        elements[0][1] = new Element(0, -1, 39 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
+        elements[0][2] = new Element(5, 2, 319 + thePanel.getCircuitXDistance(), 127 + thePanel.getCircuitYDistance());//top resistor
+        elements[0][3] = new Element(5, 2, 319 + thePanel.getCircuitXDistance(), 340 + thePanel.getCircuitYDistance());//bottom resistor
+        
+        //second page's Element initializations
+        elements[1][0] = new Element(10, 0, 38 + thePanel.getCircuitXDistance(), 120 + thePanel.getCircuitYDistance());//battery
+        elements[1][1] = new Element(0, -1, 38 + thePanel.getCircuitXDistance(), 333 + thePanel.getCircuitYDistance());//wire
+        elements[1][2] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 123 + thePanel.getCircuitYDistance());//top resistor
+        elements[1][3] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 336 + thePanel.getCircuitYDistance());//bottom resistor
+        elements[1][4] = new Element(5, 2, 444 + thePanel.getCircuitXDistance(), 236 + thePanel.getCircuitYDistance());//right resistor
+        
+        //third page's Element initializations
+        elements[2][0] = new Element(10, 0, 51 + thePanel.getCircuitXDistance(), 125 + thePanel.getCircuitYDistance());//battery
+        elements[2][1] = new Element(0, -1, 51 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
+        elements[2][2] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 128 + thePanel.getCircuitYDistance());//resistor
+        elements[2][3] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 342 + thePanel.getCircuitYDistance());//capacitor
     }
     
 
@@ -221,11 +245,60 @@ public class CircuitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_circuitPanelMousePressed
 
     private void circuitPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseReleased
+        if(oscIsSelected)
+        {
+            for(int i = 0; i < MAX_ELEMENTS && elements[currentFile][i] != null; i++)
+            {
+                if(shouldShiftPosition(thePanel.oscX, thePanel.oscY, elements[currentFile][i].getXCoordinate(), elements[currentFile][i].getYCoordinate()))
+                {
+                    thePanel.oscX = elements[currentFile][i].getXCoordinate() - 8;
+                    thePanel.oscY = elements[currentFile][i].getYCoordinate() - 8;
+                    i = MAX_ELEMENTS;
+                }
+            }
+        }
+        else if(ammIsSelected)
+        {
+            for(int i = 0; i < MAX_ELEMENTS && elements[currentFile][i] != null; i++)
+            {
+                if(shouldShiftPosition(thePanel.ammX, thePanel.ammY, elements[currentFile][i].getXCoordinate(), elements[currentFile][i].getYCoordinate()))
+                {
+                    thePanel.ammX = elements[currentFile][i].getXCoordinate() - 8;
+                    thePanel.ammY = elements[currentFile][i].getYCoordinate() - 8;
+                    i = MAX_ELEMENTS;
+                }
+            }
+        }
+        else if(voltIsSelected)
+        {
+            for(int i = 0; i < MAX_ELEMENTS && elements[currentFile][i] != null; i++)
+            {
+                if(shouldShiftPosition(thePanel.voltX, thePanel.voltY, elements[currentFile][i].getXCoordinate(), elements[currentFile][i].getYCoordinate()))
+                {
+                    thePanel.voltX = elements[currentFile][i].getXCoordinate() - 8;
+                    thePanel.voltY = elements[currentFile][i].getYCoordinate() - 8;
+                    i = MAX_ELEMENTS;
+                }
+            }
+        }
+        circuitPanel.repaint();
         voltIsSelected = false;
         ammIsSelected = false;
         oscIsSelected = false;
     }//GEN-LAST:event_circuitPanelMouseReleased
-
+  
+    public boolean shouldShiftPosition(int toolX, int toolY, int elementX, int elementY)
+    {
+        toolX += 8;
+        toolY += 8;
+        if(toolX > elementX - 50 && toolX < elementX + 50)
+        {
+            if(toolY > elementY - 50 && toolY < elementY + 50)
+                return true;
+        }
+        return false;
+    }
+    
     private void circuitPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseExited
         voltIsSelected = false;
         ammIsSelected = false;

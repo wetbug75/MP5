@@ -16,7 +16,7 @@ public class Tool {
     
     private Type type;
     private double value;
-    private Node node;
+    private Element element;
     
     Tool(Type t)
     {
@@ -31,9 +31,9 @@ public class Tool {
         return "" + value;
     }
     
-    public void getValue(Node part)
+    public void getValue(Element part)
     {
-        node = part;
+        element = part;
         if(type == Type.VOLTMETER)
             value = part.getVolts();
         else if(type == Type.AMMETER)
@@ -42,8 +42,8 @@ public class Tool {
             value = 0;
     }
     
-    public Node getNode()
+    public Element getNode()
     {
-        return node;
+        return element;
     }
 }

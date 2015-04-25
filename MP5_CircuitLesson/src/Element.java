@@ -8,27 +8,29 @@
  *
  * @author Andrew
  */
-public class Node {
-    /*static enum Type{
-        WIRE, RESISTOR, BATTERY, CAPACITOR;
-    }*/
-    
+public class Element {
     private double volts;
     private int resistance;
-    //public Type type;
+    private int xCoord;
+    private int yCoord;
     
-    
-    Node(/*Type thing,*/ int voltValue, int resistValue)
+    Element(int voltValue, int resistValue, int x, int y)
     {
-        //type = thing;
         volts = voltValue;
         resistance = resistValue;
+        xCoord = x;
+        yCoord = y;
     }
     
-    /*public Type getType()
+    public int getXCoordinate()
     {
-        return type;
-    }*/
+        return xCoord;
+    }
+    
+    public int getYCoordinate()
+    {
+        return yCoord;
+    }
     
     public double getVolts()
     {

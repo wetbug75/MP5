@@ -31,11 +31,15 @@ public class CircuitPanel extends javax.swing.JPanel {
     public int oscX;
     public int oscY;
     private String circuitFileName;
+    private int circuitXdistance;
+    private int circuitYdistance;
     
     public CircuitPanel(String circuitFileName) {
         initComponents();
         reset(circuitFileName);
         this.setBackground(Color.white);
+        circuitXdistance = 30;
+        circuitYdistance = 60;
     }
 
     @Override
@@ -56,10 +60,20 @@ public class CircuitPanel extends javax.swing.JPanel {
             Logger.getLogger(CircuitPanel.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("didn't work");
         }
-        g2D.drawImage(circuitImage, 30, 60, this);
+        g2D.drawImage(circuitImage, circuitXdistance, circuitYdistance, this);
         g2D.drawImage(voltmeterImage, voltX, voltY, this);
         g2D.drawImage(ammeterImage, ammX, ammY, this);
         g2D.drawImage(osciliscopeImage, oscX, oscY, this);
+    }
+    
+    public int getCircuitXDistance()
+    {
+        return circuitXdistance;
+    }
+    
+    public int getCircuitYDistance()
+    {
+        return circuitYdistance;
     }
     
     public void reset(String fileName)
