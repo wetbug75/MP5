@@ -7,13 +7,6 @@
 package curvekneecalcpackage;
 
 import java.util.ArrayList;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-
 /**
  *
  * @author mtbjj
@@ -65,7 +58,7 @@ public class Graph_Helper extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(640, 480));
         setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -75,13 +68,15 @@ public class Graph_Helper extends javax.swing.JFrame {
         titleLabel.setMaximumSize(new java.awt.Dimension(320, 30));
         titleLabel.setMinimumSize(new java.awt.Dimension(320, 30));
         titleLabel.setPreferredSize(new java.awt.Dimension(320, 30));
-        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        getContentPane().add(titleLabel);
+        titleLabel.setBounds(160, 20, 320, 30);
 
         outputTextArea.setColumns(20);
         outputTextArea.setRows(5);
         jScrollPane1.setViewportView(outputTextArea);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 230, 170));
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(40, 190, 230, 170);
 
         expressionInputTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,11 +88,13 @@ public class Graph_Helper extends javax.swing.JFrame {
                 expressionInputTextFieldKeyTyped(evt);
             }
         });
-        getContentPane().add(expressionInputTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 230, -1));
+        getContentPane().add(expressionInputTextField);
+        expressionInputTextField.setBounds(40, 100, 230, 19);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel1.setText("Enter algebraic expression and type enter.");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 230, 50));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(40, 60, 230, 50);
 
         clearButton.setText("Clear");
         clearButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +102,8 @@ public class Graph_Helper extends javax.swing.JFrame {
                 clearButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(clearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+        getContentPane().add(clearButton);
+        clearButton.setBounds(40, 370, 59, 25);
 
         graphButton.setText("Graph");
         graphButton.addActionListener(new java.awt.event.ActionListener() {
@@ -113,27 +111,34 @@ public class Graph_Helper extends javax.swing.JFrame {
                 graphButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(graphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, -1, -1));
+        getContentPane().add(graphButton);
+        graphButton.setBounds(190, 370, 64, 25);
 
         graphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         graphPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         graphPanel.setLayout(new java.awt.GridLayout(1, 1));
-        getContentPane().add(graphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 310, 300));
+        getContentPane().add(graphPanel);
+        graphPanel.setBounds(310, 120, 310, 300);
 
         jLabel2.setText("0");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, -1, -1));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(300, 410, 6, 15);
 
         jLabel3.setText("0");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(310, 420, 6, 15);
 
         jLabel4.setText("Y");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, -1, -1));
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(290, 240, 8, 15);
 
         jLabel5.setText("X");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, -1));
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(460, 440, 7, 15);
 
         jLabel6.setText("Graph");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(440, 100, 30, 15);
 
         dataPointInputTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,11 +150,13 @@ public class Graph_Helper extends javax.swing.JFrame {
                 dataPointInputTextFieldKeyTyped(evt);
             }
         });
-        getContentPane().add(dataPointInputTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 230, -1));
+        getContentPane().add(dataPointInputTextField);
+        dataPointInputTextField.setBounds(40, 150, 230, 19);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel7.setText("Enter comma separated data point and type enter.");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 230, 50));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(40, 110, 230, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,10 +174,9 @@ public class Graph_Helper extends javax.swing.JFrame {
         // TODO add your handling code here:
         while(!f.isEmpty())
             f.remove(0);
-        graph = new Graph();
-        graph.repaint();
         outputTextArea.setText("");
         expressionInputTextField.setText("");
+        graph.clearGraph();
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void graphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphButtonActionPerformed

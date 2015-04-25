@@ -21,6 +21,11 @@ public class Graph extends Canvas{
     
     void drawLine(Point p1, Point p2, int graphHeight) {
         Graphics g = getGraphics();
-        g.drawLine(p1.getX(), graphHeight -p1.getY(), p2.getX(), graphHeight -p2.getY());
+        g.drawLine(p1.getX(), graphHeight - p1.getY(), p2.getX(), graphHeight - p2.getY());
+    }
+    
+    void clearGraph(){
+        Graphics g = getGraphics();
+        g.clearRect(0, 0, getWidth(), getHeight());
     }
 }
