@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,13 +24,13 @@ import javax.imageio.ImageIO;
  */
 public class CircuitPanel extends javax.swing.JPanel {
 
-    int voltX;
-    int voltY;
-    int ammX;
-    int ammY;
-    int oscX;
-    int oscY;
-    String circuitFileName;
+    public int voltX;
+    public int voltY;
+    public int ammX;
+    public int ammY;
+    public int oscX;
+    public int oscY;
+    private String circuitFileName;
     
     public CircuitPanel(String circuitFileName) {
         initComponents();

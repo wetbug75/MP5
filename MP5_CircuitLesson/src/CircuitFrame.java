@@ -1,8 +1,4 @@
 
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,15 +16,26 @@ public class CircuitFrame extends javax.swing.JFrame {
     CircuitPanel thePanel;
     String[] fileNames; 
     static final int NUM_CIRCUITS = 3;
+    static final int TOOL_WIDTH = 143;
+    static final int TOOL_HEIGHT = 77;
     int currentFile;
+    boolean voltIsSelected;
+    boolean ammIsSelected;
+    boolean oscIsSelected;
     
     /**
      * Creates new form CircuitFrame
      */
     public CircuitFrame() {
         initComponents();
+        
+        voltIsSelected = false;
+        ammIsSelected = false;
+        oscIsSelected = false;
+        
         graph = new Graph();
         graphPanel.add(graph);
+        
         fileNames = new String[NUM_CIRCUITS];
         fileNames[0] = "/imagePackage/series_circuit.png";
         fileNames[1] = "/imagePackage/parallel_circuit.png";
@@ -36,13 +43,9 @@ public class CircuitFrame extends javax.swing.JFrame {
         
         currentFile = 0;
         thePanel = new CircuitPanel(fileNames[currentFile]);
-        
-        //ImageIcon image = new ImageIcon(getClass().getResource("/imagePackage/parallel_circuit.png")); 
-        //JLabel rcImageLabel = new JLabel(image);
-        //circuitPanel.add(rcImageLabel);
         circuitPanel.add(thePanel);
-        //thePanel.repaint();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +68,22 @@ public class CircuitFrame extends javax.swing.JFrame {
 
         circuitPanel.setBackground(new java.awt.Color(255, 255, 255));
         circuitPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        circuitPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                circuitPanelMouseDragged(evt);
+            }
+        });
+        circuitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                circuitPanelMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                circuitPanelMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                circuitPanelMouseReleased(evt);
+            }
+        });
         circuitPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         nextButton.setText("next");
@@ -120,8 +139,6 @@ public class CircuitFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-        //thePanel.reset("/imagePackage/rc_circuit.png");
-        //circuitPanel.repaint();
         if(currentFile > 0)
         {
             currentFile--;
@@ -138,6 +155,54 @@ public class CircuitFrame extends javax.swing.JFrame {
             circuitPanel.repaint();
         }
     }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void circuitPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseDragged
+        if(oscIsSelected)
+        {
+            thePanel.oscX = evt.getX() - TOOL_WIDTH / 2;
+            thePanel.oscY = evt.getY() - TOOL_HEIGHT / 2;
+            circuitPanel.repaint();
+        }
+        else if(ammIsSelected)
+        {
+            thePanel.ammX = evt.getX() - TOOL_WIDTH / 2;
+            thePanel.ammY = evt.getY() - TOOL_HEIGHT / 2;
+            circuitPanel.repaint();
+        }
+        else if(voltIsSelected)
+        {
+            thePanel.voltX = evt.getX() - TOOL_WIDTH / 2;
+            thePanel.voltY = evt.getY() - TOOL_HEIGHT / 2;
+            circuitPanel.repaint();
+        }
+    }//GEN-LAST:event_circuitPanelMouseDragged
+
+    private void circuitPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMousePressed
+        if(evt.getX() >= thePanel.oscX && evt.getX() < thePanel.oscX + TOOL_WIDTH && evt.getY() >= thePanel.oscY && evt.getY() < thePanel.oscY + TOOL_HEIGHT)
+        {
+            oscIsSelected = true;
+        }
+        else if(evt.getX() >= thePanel.ammX && evt.getX() < thePanel.ammX + TOOL_WIDTH && evt.getY() >= thePanel.ammY && evt.getY() < thePanel.ammY + TOOL_HEIGHT)
+        {
+            ammIsSelected = true;
+        }
+        else if(evt.getX() >= thePanel.voltX && evt.getX() < thePanel.voltX + TOOL_WIDTH && evt.getY() >= thePanel.voltY && evt.getY() < thePanel.voltY + TOOL_HEIGHT)
+        {
+            voltIsSelected = true;
+        }
+    }//GEN-LAST:event_circuitPanelMousePressed
+
+    private void circuitPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseReleased
+        voltIsSelected = false;
+        ammIsSelected = false;
+        oscIsSelected = false;
+    }//GEN-LAST:event_circuitPanelMouseReleased
+
+    private void circuitPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseExited
+        voltIsSelected = false;
+        ammIsSelected = false;
+        oscIsSelected = false;
+    }//GEN-LAST:event_circuitPanelMouseExited
 
     /**
      * @param args the command line arguments
