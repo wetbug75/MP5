@@ -23,4 +23,9 @@ public class Graph extends Canvas{
         Graphics g = getGraphics();
         g.drawLine(p1.getX(), graphHeight -p1.getY(), p2.getX(), graphHeight -p2.getY());
     }
+    
+    void clearGraph(){
+        Graphics g = getGraphics();
+        g.clearRect(0, 0, getWidth(), getHeight());
+    }
 }
