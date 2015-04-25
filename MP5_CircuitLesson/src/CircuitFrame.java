@@ -1,6 +1,8 @@
 
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +16,11 @@ import javax.swing.JLabel;
  */
 public class CircuitFrame extends javax.swing.JFrame {
 
-    Sliders sliders;
     Graph graph;
+    CircuitPanel thePanel;
+    String[] fileNames; 
+    static final int NUM_CIRCUITS = 3;
+    int currentFile;
     
     /**
      * Creates new form CircuitFrame
@@ -24,10 +29,19 @@ public class CircuitFrame extends javax.swing.JFrame {
         initComponents();
         graph = new Graph();
         graphPanel.add(graph);
+        fileNames = new String[NUM_CIRCUITS];
+        fileNames[0] = "/imagePackage/series_circuit.png";
+        fileNames[1] = "/imagePackage/parallel_circuit.png";
+        fileNames[2] = "/imagePackage/rc_circuit.png";
         
-        ImageIcon image = new ImageIcon(getClass().getResource("/imagePackage/parallel_circuit.png")); 
-        JLabel rcImageLabel = new JLabel(image);
-        circuitPanel.add(rcImageLabel);
+        currentFile = 0;
+        thePanel = new CircuitPanel(fileNames[currentFile]);
+        
+        //ImageIcon image = new ImageIcon(getClass().getResource("/imagePackage/parallel_circuit.png")); 
+        //JLabel rcImageLabel = new JLabel(image);
+        //circuitPanel.add(rcImageLabel);
+        circuitPanel.add(thePanel);
+        //thePanel.repaint();
     }
 
     /**
@@ -106,11 +120,23 @@ public class CircuitFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-        // TODO add your handling code here:
+        //thePanel.reset("/imagePackage/rc_circuit.png");
+        //circuitPanel.repaint();
+        if(currentFile > 0)
+        {
+            currentFile--;
+            thePanel.reset(fileNames[currentFile]);
+            circuitPanel.repaint();
+        }
     }//GEN-LAST:event_previousButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        // TODO add your handling code here:
+        if(currentFile < NUM_CIRCUITS - 1)
+        {
+            currentFile++;
+            thePanel.reset(fileNames[currentFile]);
+            circuitPanel.repaint();
+        }
     }//GEN-LAST:event_nextButtonActionPerformed
 
     /**
