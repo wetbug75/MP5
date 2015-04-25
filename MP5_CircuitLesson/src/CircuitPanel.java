@@ -56,7 +56,7 @@ public class CircuitPanel extends javax.swing.JPanel {
             Logger.getLogger(CircuitPanel.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("didn't work");
         }
-        g2D.drawImage(circuitImage, 0, 0, this);
+        g2D.drawImage(circuitImage, 30, 60, this);
         g2D.drawImage(voltmeterImage, voltX, voltY, this);
         g2D.drawImage(ammeterImage, ammX, ammY, this);
         g2D.drawImage(osciliscopeImage, oscX, oscY, this);
