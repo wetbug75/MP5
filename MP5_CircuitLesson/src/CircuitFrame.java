@@ -76,6 +76,9 @@ public class CircuitFrame extends javax.swing.JFrame {
         elements[2][1] = new Element(0, -1, 51 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
         elements[2][2] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 128 + thePanel.getCircuitYDistance());//resistor
         elements[2][3] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 342 + thePanel.getCircuitYDistance());//capacitor
+        
+        //fourth page's Element initializations
+        elements[3][0] = new Element(10, Double.POSITIVE_INFINITY, 362, 251);//output
     }
     
 
@@ -256,6 +259,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         {
             voltIsSelected = true;
         }
+        System.out.println("Mouse X:  " + evt.getX() + "\tMouse Y:  " + evt.getY());
     }//GEN-LAST:event_circuitPanelMousePressed
 
     private void circuitPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseReleased

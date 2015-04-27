@@ -10,11 +10,11 @@
  */
 public class Element {
     private double volts;
-    private int resistance;
+    private double resistance;
     private int xCoord;
     private int yCoord;
     
-    Element(int voltValue, int resistValue, int x, int y)
+    Element(double voltValue, double resistValue, int x, int y)
     {
         volts = voltValue;
         resistance = resistValue;
@@ -42,7 +42,7 @@ public class Element {
         return volts / resistance;
     }
     
-    public int getResistance()
+    public double getResistance()
     {
         return resistance;
     }
