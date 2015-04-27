@@ -16,7 +16,7 @@ public class CircuitFrame extends javax.swing.JFrame {
     CircuitPanel thePanel;//panel containing Elements and Tools
     String[] fileNames; //contains file names for all circuit images
     Element[][] elements;
-    static final int NUM_CIRCUITS = 3;
+    static final int NUM_CIRCUITS = 4;
     static final int TOOL_WIDTH = 143;
     static final int TOOL_HEIGHT = 77;
     static final int MAX_ELEMENTS = 5;
@@ -46,6 +46,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         fileNames[0] = "/imagePackage/series_circuit.png";
         fileNames[1] = "/imagePackage/parallel_circuit.png";
         fileNames[2] = "/imagePackage/rc_circuit.png";
+        fileNames[3] = "/imagePackage/555_timer_circuit.png";
         
         currentFile = 0;
         thePanel = new CircuitPanel(fileNames[currentFile]);
