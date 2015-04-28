@@ -18,6 +18,7 @@ public class CircuitFrame extends javax.swing.JFrame {
     Graph graph;
     CircuitPanel thePanel;//panel containing Elements and Tools
     String[] fileNames; //contains file names for all circuit images
+    boolean[] correctAnswers;
     Element[][] elements;
     static final int NUM_CIRCUITS = 4;
     static final int TOOL_WIDTH = 143;
@@ -46,6 +47,11 @@ public class CircuitFrame extends javax.swing.JFrame {
         
         graph = new Graph();
         graphPanel.add(graph);
+        
+        correctAnswers = new boolean[NUM_CIRCUITS];
+        for(int i = 0; i < NUM_CIRCUITS; i++)
+            correctAnswers[i] = false;
+
         
         fileNames = new String[NUM_CIRCUITS];
         fileNames[0] = "/imagePackage/series_circuit.png";
@@ -386,29 +392,58 @@ public class CircuitFrame extends javax.swing.JFrame {
         switch(currentFile)
         {
             case(0):
-                if(answerTextField.getText().equals("10")){
+                if(answerTextField.getText().equals("10"))
+                {
                     JOptionPane.showMessageDialog(null, "Good job! Notice how the total voltage drop is equal to the voltage of the battery.\nThis will always happen with circuits that stay connected in one simple loop.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                } break;
+                    correctAnswers[0] = true;
+                } 
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
             case(1):
-                if(answerTextField.getText().equals("3")){
+                if(answerTextField.getText().equals("3"))
+                {
                     JOptionPane.showMessageDialog(null, "Nice Job!  You may have noticed that this resistor has a larger resistance\nthan the two other resistors, but the current is still larger on the far right path.\nThis is because resistances add when in series.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                } break;
+                    correctAnswers[1] = true;
+                } 
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
             case(2):
-                if(answerTextField.getText().equals("IDK")){
+                if(answerTextField.getText().equals("IDK"))
+                {
                     JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                    return;
+                    correctAnswers[2] = true;
                 }
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
             case(3):
-                if(answerTextField.getText().equals("IDK")){
+                if(answerTextField.getText().equals("IDK"))
+                {
                     JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                } break;
+                    correctAnswers[3] = true;
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
         }
-        JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+        if(allCorrect())
+            JOptionPane.showMessageDialog(null, "Congradulations, you have successfully answered all questions! continue experimenting at your leisure.", "Lesson Complete", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_answerTextFieldActionPerformed
 
+    public boolean allCorrect()
+    {
+        for(int i = 0; i < NUM_CIRCUITS; i++)
+        {
+            if(!correctAnswers[i])
+                return false;
+        }
+        return true;
+    }
+
+    
     /**
      * @param args the command line arguments
      */
