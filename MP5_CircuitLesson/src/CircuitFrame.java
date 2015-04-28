@@ -1,4 +1,7 @@
 
+import javax.swing.JOptionPane;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,6 +33,7 @@ public class CircuitFrame extends javax.swing.JFrame {
 
     public CircuitFrame() {
         initComponents();
+        lessonTextField.setEditable(false);
         
         voltmeter = new Tool(Tool.Type.VOLTMETER);
         ammeter = new Tool(Tool.Type.AMMETER);
@@ -99,6 +103,10 @@ public class CircuitFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         voltageLabel = new javax.swing.JLabel();
         currentLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lessonTextField = new javax.swing.JTextArea();
+        answerTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,33 +155,51 @@ public class CircuitFrame extends javax.swing.JFrame {
 
         currentLabel.setText("---");
 
+        lessonTextField.setColumns(20);
+        lessonTextField.setRows(5);
+        lessonTextField.setText("Here we have a simple circuit with one \nbattery and two resistors.  Try using the \nvoltmeter to add together the voltage drop \nin each resistor and put your answer below.  \nFeel free to try out the other tools as well.");
+        jScrollPane1.setViewportView(lessonTextField);
+
+        answerTextField.setText("0");
+        answerTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                answerTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Answer:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(circuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                .addComponent(circuitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(voltageLabel))
-                            .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(currentLabel)))
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(previousButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                         .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                        .addGap(54, 54, 54))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(voltageLabel))
+                                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(currentLabel))
+                                .addComponent(jScrollPane1)
+                                .addComponent(answerTextField))
+                            .addComponent(jLabel3))
+                        .addGap(13, 13, 13))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +217,13 @@ public class CircuitFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(currentLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(answerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(previousButton)
                             .addComponent(nextButton))))
@@ -213,6 +245,7 @@ public class CircuitFrame extends javax.swing.JFrame {
             currentFile--;
             thePanel.reset(fileNames[currentFile]);
             circuitPanel.repaint();
+            changeLessonText();
         }
     }//GEN-LAST:event_previousButtonActionPerformed
 
@@ -222,9 +255,23 @@ public class CircuitFrame extends javax.swing.JFrame {
             currentFile++;
             thePanel.reset(fileNames[currentFile]);
             circuitPanel.repaint();
+            changeLessonText();
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
+    public void changeLessonText()
+    {
+        switch(currentFile)
+        {
+            case(0):
+                lessonTextField.setText("Here we have a simple circuit with one\nbattery and two resistors.  Try using the\nvoltmeter to add together the voltage drop\nin each resistor and put your answer below.\nFeel free to try out the other tools as well.");
+                break;
+            case(1):
+                lessonTextField.setText("Now the circuit takes two paths.  You’ll notice through\nexperimentation that the current through one path is larger than\nthe other; this is because there is less resistance.  Try to find\nthe resistance of the far right resistor and answer below.\n(Voltage = Current x Resistance)");
+                break;
+        }
+    }
+    
     private void circuitPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseDragged
         if(oscIsSelected)
         {
@@ -327,6 +374,24 @@ public class CircuitFrame extends javax.swing.JFrame {
         oscIsSelected = false;
     }//GEN-LAST:event_circuitPanelMouseExited
 
+    private void answerTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerTextFieldActionPerformed
+        switch(currentFile)
+        {
+            case(0):
+                if(answerTextField.getText().equals("10"))
+                    JOptionPane.showMessageDialog(null, "Good job! Notice how the total voltage drop is equal to the voltage of the battery.  This will always happen with circuits that stay connected in one simple loop. Click next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case(1):
+                if(answerTextField.getText().equals("?"))
+                    JOptionPane.showMessageDialog(null, "Submit correct answer: Nice Job!  You may have noticed that this resistor has a larger resistance than the two other resistors, but the current is still larger on the far right path.  This is because resistances add when in series.  Click next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                break;
+        }
+    }//GEN-LAST:event_answerTextFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,11 +428,15 @@ public class CircuitFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField answerTextField;
     private javax.swing.JPanel circuitPanel;
     private javax.swing.JLabel currentLabel;
     private javax.swing.JPanel graphPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea lessonTextField;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton previousButton;
     private javax.swing.JLabel voltageLabel;
