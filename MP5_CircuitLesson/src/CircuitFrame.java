@@ -256,6 +256,8 @@ public class CircuitFrame extends javax.swing.JFrame {
             currentFile++;
             thePanel.reset(fileNames[currentFile]);
             circuitPanel.repaint();
+            voltageLabel.setText("---");
+            currentLabel.setText("---");
             changeLessonText();
         }
     }//GEN-LAST:event_nextButtonActionPerformed
@@ -269,6 +271,12 @@ public class CircuitFrame extends javax.swing.JFrame {
                 break;
             case(1):
                 lessonTextField.setText("Now the circuit takes two paths.  You’ll notice through\nexperimentation that the current through one path is larger than\nthe other; this is because there is less resistance.  Try to find\nthe resistance of the far right resistor and answer below.\n(Voltage = Current x Resistance)");
+                break;
+            case(2):
+                lessonTextField.setText("This time we have a capacitor.  Much like a battery,\nit stores electrical energy.  However, typically,\ncapacitors disharge their stored energy very quickly.");
+                break;
+            case(3):
+                lessonTextField.setText("");
                 break;
         }
     }
@@ -307,7 +315,6 @@ public class CircuitFrame extends javax.swing.JFrame {
         {
             voltIsSelected = true;
         }
-        System.out.println("Mouse X:  " + evt.getX() + "\tMouse Y:  " + evt.getY());
     }//GEN-LAST:event_circuitPanelMousePressed
 
     private void circuitPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseReleased
@@ -379,18 +386,22 @@ public class CircuitFrame extends javax.swing.JFrame {
         switch(currentFile)
         {
             case(0):
-                if(answerTextField.getText().equals("10"))
-                    JOptionPane.showMessageDialog(null, "Good job! Notice how the total voltage drop is equal to the voltage of the battery.  This will always happen with circuits that stay connected in one simple loop. Click next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
-                break;
+                if(answerTextField.getText().equals("10")){
+                    JOptionPane.showMessageDialog(null, "Good job! Notice how the total voltage drop is equal to the voltage of the battery.\nThis will always happen with circuits that stay connected in one simple loop.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } break;
             case(1):
-                if(answerTextField.getText().equals("?"))
-                    JOptionPane.showMessageDialog(null, "Submit correct answer: Nice Job!  You may have noticed that this resistor has a larger resistance than the two other resistors, but the current is still larger on the far right path.  This is because resistances add when in series.  Click next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
-                else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
-                break;
+                if(answerTextField.getText().equals("2")){
+                    JOptionPane.showMessageDialog(null, "Nice Job!  You may have noticed that this resistor has a larger resistance\nthan the two other resistors, but the current is still larger on the far right path.\nThis is because resistances add when in series.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } break;
+            case(3):
+                if(answerTextField.getText().equals("IDK")){
+                    System.out.print("");
+                    return;
+                } break;
         }
+        JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_answerTextFieldActionPerformed
 
     /**
