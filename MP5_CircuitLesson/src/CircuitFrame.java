@@ -33,6 +33,7 @@ public class CircuitFrame extends javax.swing.JFrame {
 
     public CircuitFrame() {
         initComponents();
+        this.setTitle("Circuit Lesson");
         lessonTextField.setEditable(false);
         
         voltmeter = new Tool(Tool.Type.VOLTMETER);
