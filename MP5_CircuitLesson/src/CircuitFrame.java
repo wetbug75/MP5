@@ -395,9 +395,14 @@ public class CircuitFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Nice Job!  You may have noticed that this resistor has a larger resistance\nthan the two other resistors, but the current is still larger on the far right path.\nThis is because resistances add when in series.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } break;
+            case(2):
+                if(answerTextField.getText().equals("IDK")){
+                    JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
             case(3):
                 if(answerTextField.getText().equals("IDK")){
-                    System.out.print("");
+                    JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } break;
         }
