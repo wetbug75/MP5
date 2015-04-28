@@ -11,13 +11,15 @@
 public class Element {
     private double volts;
     private double resistance;
+    private double capacitance;
     private int xCoord;
     private int yCoord;
     
-    Element(double voltValue, double resistValue, int x, int y)
+    Element(double voltage, double resistance, double capacitance, int x, int y)
     {
-        volts = voltValue;
-        resistance = resistValue;
+        volts = voltage;
+        this.resistance = resistance;
+        this.capacitance = capacitance;
         xCoord = x;
         yCoord = y;
     }
@@ -35,6 +37,11 @@ public class Element {
     public double getVolts()
     {
         return volts;
+    }
+    
+    public double getCapacitance()
+    {
+        return capacitance;
     }
     
     public double getCurrent()

@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -24,6 +25,10 @@ public class CircuitFrame extends javax.swing.JFrame {
     static final int TOOL_WIDTH = 143;
     static final int TOOL_HEIGHT = 77;
     static final int MAX_ELEMENTS = 5;
+    final int RC_CIRCUIT = 0;
+    final int R_CIRCUIT = 1;
+    final int TIMER_CIRCUIT =2;
+    ArrayList<Point> f;
     int currentFile;
     boolean voltIsSelected;
     boolean ammIsSelected;
@@ -34,8 +39,6 @@ public class CircuitFrame extends javax.swing.JFrame {
 
     public CircuitFrame() {
         initComponents();
-        this.setTitle("Circuit Lesson");
-        lessonTextField.setEditable(false);
         
         voltmeter = new Tool(Tool.Type.VOLTMETER);
         ammeter = new Tool(Tool.Type.AMMETER);
@@ -47,11 +50,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         
         graph = new Graph();
         graphPanel.add(graph);
-        
-        correctAnswers = new boolean[NUM_CIRCUITS];
-        for(int i = 0; i < NUM_CIRCUITS; i++)
-            correctAnswers[i] = false;
-
+        f = new ArrayList<>();
         
         fileNames = new String[NUM_CIRCUITS];
         fileNames[0] = "/imagePackage/series_circuit.png";
@@ -70,26 +69,30 @@ public class CircuitFrame extends javax.swing.JFrame {
                 elements[x][y] = null;
         }
         //first page's Element initializations
-        elements[0][0] = new Element(10, 0, 39 + thePanel.getCircuitXDistance(), 124 + thePanel.getCircuitYDistance());//battery
-        elements[0][1] = new Element(0, -1, 39 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
-        elements[0][2] = new Element(5, 2, 319 + thePanel.getCircuitXDistance(), 127 + thePanel.getCircuitYDistance());//top resistor
-        elements[0][3] = new Element(5, 2, 319 + thePanel.getCircuitXDistance(), 340 + thePanel.getCircuitYDistance());//bottom resistor
+        elements[0][0] = new Element(10, 0, 0, 39 + thePanel.getCircuitXDistance(), 124 + thePanel.getCircuitYDistance());//battery
+        elements[0][1] = new Element(0, -1, 0, 39 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
+        elements[0][2] = new Element(5, 2, 0, 319 + thePanel.getCircuitXDistance(), 127 + thePanel.getCircuitYDistance());//top resistor
+        elements[0][3] = new Element(5, 2, 0, 319 + thePanel.getCircuitXDistance(), 340 + thePanel.getCircuitYDistance());//bottom resistor
         
         //second page's Element initializations
-        elements[1][0] = new Element(10, 0, 38 + thePanel.getCircuitXDistance(), 120 + thePanel.getCircuitYDistance());//battery
-        elements[1][1] = new Element(0, -1, 38 + thePanel.getCircuitXDistance(), 333 + thePanel.getCircuitYDistance());//wire
-        elements[1][2] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 123 + thePanel.getCircuitYDistance());//top resistor
-        elements[1][3] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 336 + thePanel.getCircuitYDistance());//bottom resistor
-        elements[1][4] = new Element(10, 3, 444 + thePanel.getCircuitXDistance(), 236 + thePanel.getCircuitYDistance());//right resistor
+        elements[1][0] = new Element(10, 0, 0, 38 + thePanel.getCircuitXDistance(), 120 + thePanel.getCircuitYDistance());//battery
+        elements[1][1] = new Element(0, -1, 0, 38 + thePanel.getCircuitXDistance(), 333 + thePanel.getCircuitYDistance());//wire
+        elements[1][2] = new Element(5, 2, 0, 245 + thePanel.getCircuitXDistance(), 123 + thePanel.getCircuitYDistance());//top resistor
+        elements[1][3] = new Element(5, 2, 0, 245 + thePanel.getCircuitXDistance(), 336 + thePanel.getCircuitYDistance());//bottom resistor
+        elements[1][4] = new Element(5, 2, 0, 444 + thePanel.getCircuitXDistance(), 236 + thePanel.getCircuitYDistance());//right resistor
         
         //third page's Element initializations
-        elements[2][0] = new Element(10, 0, 51 + thePanel.getCircuitXDistance(), 125 + thePanel.getCircuitYDistance());//battery
-        elements[2][1] = new Element(0, -1, 51 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
-        elements[2][2] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 128 + thePanel.getCircuitYDistance());//resistor
-        elements[2][3] = new Element(5, 2, 331 + thePanel.getCircuitXDistance(), 342 + thePanel.getCircuitYDistance());//capacitor
+        elements[2][0] = new Element(10, 0, 0, 51 + thePanel.getCircuitXDistance(), 125 + thePanel.getCircuitYDistance());//battery
+        elements[2][1] = new Element(0, -1, 0, 51 + thePanel.getCircuitXDistance(), 338 + thePanel.getCircuitYDistance());//wire
+        elements[2][2] = new Element(5, 2, 0, 331 + thePanel.getCircuitXDistance(), 128 + thePanel.getCircuitYDistance());//resistor
+        elements[2][3] = new Element(5, 2,0.0001, 331 + thePanel.getCircuitXDistance(), 342 + thePanel.getCircuitYDistance());//capacitor
         
         //fourth page's Element initializations
-        elements[3][0] = new Element(10, Double.POSITIVE_INFINITY, 362, 251);//output
+        elements[3][0] = new Element(10, Double.POSITIVE_INFINITY, 0, 362, 251);//output
+        elements[3][1] = new Element(10, 10000, 0, 362, 251);//resistor 1
+        elements[3][2] = new Element(10, 10000, 0, 362, 251);//resistor 2
+        elements[3][3] = new Element(10, 0, 0.01, 362, 251);//capacitor
+        elements[3][4] = new Element(10, 0, 0.01, 362, 251);//Vcc
     }
     
 
@@ -240,6 +243,65 @@ public class CircuitFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void clearDataPoints() {
+        while(!f.isEmpty())
+            f.remove(0);
+        graph = new Graph();
+    }
+    
+    public void updateGraph(Element e, int circuit) {
+        Point p;    //Place holder point
+        switch(circuit) {
+            case RC_CIRCUIT: 
+                int vt = 0; //V as function of time
+                double vi = 0; //V initial
+                double r = elements[2][2].getResistance();  //R in ohms
+                double c = elements[2][3].getCapacitance();  //C Farads
+                for(int t = 1; t <= (int)graphPanel.getBounds().getWidth() && vt <= (int)graphPanel.getBounds().getHeight() && vt >= 0; t++) {
+                    //p = new Point(t, (int) ( vi * (1 - Math.pow(Math.E,( -t/(r*c) ) ))));   //discharging RC circuit
+                    p = new Point(t, (int) ( vi * (Math.pow(Math.E,( -t/(r*c) ) ))));   //charging RC circuit
+                    f.add(p);
+                }
+                break;
+            case R_CIRCUIT:
+                vt = (int)e.getVolts();
+                for(int t = 1; t <= (int)graphPanel.getBounds().getWidth() && vt <= (int)graphPanel.getBounds().getHeight() && vt >= 0; t++) {
+                    p = new Point(t, (int) vt);
+                    f.add(p);
+                }
+                break;
+            case TIMER_CIRCUIT:
+                vt = 0; //V as function of time
+                int vcc= (int)elements[3][4].getVolts(); //Vcc
+                double r1 = elements[3][1].getResistance();  //R1 in ohms
+                double r2 = elements[3][2].getResistance();  //R2 in ohms
+                c = elements[3][3].getCapacitance();  //C in micro farads
+                int freq = (int)(1/(Math.log(2)*c*(r1+2*r2)));
+                int tHigh = (int)(Math.log(2)*(r1+r2)*c);
+                int tLow = (int)(Math.log(2) * r2*c);
+                boolean prevState = true;
+                final boolean HIGH = true;
+                final boolean LOW = false;
+                
+                int t = 1;
+                while(t <= (int)graphPanel.getBounds().getWidth() && vt <= (int)graphPanel.getBounds().getHeight() && vt >= 0) {
+                    for(int t1 = 0; t1 < tLow; t1++) {
+                        f.add(new Point(t,1));
+                        t++;
+                    }
+                    for(int t2 = 0; t2 < tHigh; t2++) {
+                        f.add(new Point(t,vcc));
+                        t++;
+                    }
+                }
+                break;
+        }
+        for(int i = f.size()-1; i >= 1; i--){
+            graph.drawLine(f.get(i), f.get(i-1), (int)graphPanel.getBounds().getHeight());
+        }
+    }
+    
+    
     public void updateDisplay()
     {
         voltageLabel.setText(voltmeter.display());
@@ -336,6 +398,15 @@ public class CircuitFrame extends javax.swing.JFrame {
                     i = MAX_ELEMENTS;
                 }
             }
+            int circuit = R_CIRCUIT;
+            switch(currentFile) {
+                case 2:
+                    circuit = RC_CIRCUIT;
+                    break;
+                case 3:
+                    circuit = TIMER_CIRCUIT;
+            }
+            updateGraph(osciliscope.getElement(),circuit);
         }
         else if(ammIsSelected)
         {
