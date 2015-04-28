@@ -74,7 +74,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         elements[1][1] = new Element(0, -1, 38 + thePanel.getCircuitXDistance(), 333 + thePanel.getCircuitYDistance());//wire
         elements[1][2] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 123 + thePanel.getCircuitYDistance());//top resistor
         elements[1][3] = new Element(5, 2, 245 + thePanel.getCircuitXDistance(), 336 + thePanel.getCircuitYDistance());//bottom resistor
-        elements[1][4] = new Element(5, 2, 444 + thePanel.getCircuitXDistance(), 236 + thePanel.getCircuitYDistance());//right resistor
+        elements[1][4] = new Element(10, 3, 444 + thePanel.getCircuitXDistance(), 236 + thePanel.getCircuitYDistance());//right resistor
         
         //third page's Element initializations
         elements[2][0] = new Element(10, 0, 51 + thePanel.getCircuitXDistance(), 125 + thePanel.getCircuitYDistance());//battery
@@ -391,7 +391,7 @@ public class CircuitFrame extends javax.swing.JFrame {
                     return;
                 } break;
             case(1):
-                if(answerTextField.getText().equals("2")){
+                if(answerTextField.getText().equals("3")){
                     JOptionPane.showMessageDialog(null, "Nice Job!  You may have noticed that this resistor has a larger resistance\nthan the two other resistors, but the current is still larger on the far right path.\nThis is because resistances add when in series.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } break;
