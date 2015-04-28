@@ -276,7 +276,7 @@ public class CircuitFrame extends javax.swing.JFrame {
                 lessonTextField.setText("This time we have a capacitor.  Much like a battery,\nit stores electrical energy.  However, typically,\ncapacitors disharge their stored energy very quickly.");
                 break;
             case(3):
-                lessonTextField.setText("");
+                lessonTextField.setText("THIS IS THE SUPER AWESOME 555 CIRCUIT!!!! YEAH!!!!\nCHECK OUT THAT COOL OSCILISCOPE!!!!");
                 break;
         }
     }
