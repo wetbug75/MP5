@@ -313,6 +313,11 @@ public class CircuitFrame extends javax.swing.JFrame {
             currentFile--;
             thePanel.reset(fileNames[currentFile]);
             circuitPanel.repaint();
+            voltageLabel.setText("---");
+            currentLabel.setText("---");
+            voltmeter.emptyTool();
+            ammeter.emptyTool();
+            osciliscope.emptyTool();
             changeLessonText();
         }
     }//GEN-LAST:event_previousButtonActionPerformed
@@ -325,6 +330,9 @@ public class CircuitFrame extends javax.swing.JFrame {
             circuitPanel.repaint();
             voltageLabel.setText("---");
             currentLabel.setText("---");
+            voltmeter.emptyTool();
+            ammeter.emptyTool();
+            osciliscope.emptyTool();
             changeLessonText();
         }
     }//GEN-LAST:event_nextButtonActionPerformed

@@ -51,4 +51,9 @@ public class Tool {
     {
         return element;
     }
+    
+    public void emptyTool()
+    {
+        element.setAllZero();
+    }
 }

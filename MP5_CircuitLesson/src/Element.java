@@ -63,4 +63,11 @@ public class Element {
     {
         resistance = r;
     }
+    
+    public void setAllZero()
+    {
+        volts = 0;
+        resistance = 0;
+        capacitance = 0;
+    }
 }
