@@ -1,14 +1,8 @@
+//MP5_CircuitLesson - Andrew Krause - 4/29/15
+
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -20,19 +14,23 @@ public class CircuitFrame extends javax.swing.JFrame {
     CircuitPanel thePanel;//panel containing Elements and Tools
     String[] fileNames; //contains file names for all circuit images
     boolean[] correctAnswers;
-    Element[][] elements;
-    static final int NUM_CIRCUITS = 4;
-    static final int TOOL_WIDTH = 143;
-    static final int TOOL_HEIGHT = 77;
-    static final int MAX_ELEMENTS = 5;
+    Element[][] elements;//all Elements used in program
+    static final int NUM_CIRCUITS = 4;//nuber of circuits
+    static final int TOOL_WIDTH = 143;//width of tool
+    static final int TOOL_HEIGHT = 77;//hight of tool
+    static final int MAX_ELEMENTS = 5;//most Elements in one circuit
     final int RC_CIRCUIT = 0;
     final int R_CIRCUIT = 1;
     final int TIMER_CIRCUIT =2;
     ArrayList<Point> f;
-    int currentFile;
+    int currentFile;//number indicator of what circuit the user is 
+                    //currently viewing
+    
+    //these are used to see which tools are being used
     boolean voltIsSelected;
     boolean ammIsSelected;
     boolean oscIsSelected;
+    
     Tool voltmeter;
     Tool ammeter;
     Tool osciliscope;
@@ -40,6 +38,7 @@ public class CircuitFrame extends javax.swing.JFrame {
     public CircuitFrame() {
         initComponents();
         
+        //initialize Tools
         voltmeter = new Tool(Tool.Type.VOLTMETER);
         ammeter = new Tool(Tool.Type.AMMETER);
         osciliscope = new Tool(Tool.Type.OSCILISCOPE);
@@ -62,6 +61,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         thePanel = new CircuitPanel(fileNames[currentFile]);
         circuitPanel.add(thePanel);
         
+        //initialized all elements
         elements = new Element[NUM_CIRCUITS][MAX_ELEMENTS];
         for(int x = 0; x < NUM_CIRCUITS; x++)
         {
@@ -301,13 +301,14 @@ public class CircuitFrame extends javax.swing.JFrame {
         }
     }
     
-    
+    //sets voltage and current indicators to the Tool's stored values
     public void updateDisplay()
     {
         voltageLabel.setText(voltmeter.display());
         currentLabel.setText(ammeter.display());
     }
     
+    //goes to previous circuit and sets all values to zero
     private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
         if(currentFile > 0)
         {
@@ -323,6 +324,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_previousButtonActionPerformed
 
+    //goes to next circuit and sets all values to zero
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         if(currentFile < NUM_CIRCUITS - 1)
         {
@@ -338,25 +340,46 @@ public class CircuitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
+    //sets the main text based on what circuit is selected
     public void changeLessonText()
     {
         switch(currentFile)
         {
             case(0):
-                lessonTextField.setText("Here we have a simple circuit with one\nbattery and two resistors.  Try using the\nvoltmeter to add together the voltage drop\nin each resistor and put your answer below.\nFeel free to try out the other tools as well.");
+                lessonTextField.setText("Here we have a simple circuit with one"
+                        + "\nbattery and two resistors.  Try using the"
+                        + "\nvoltmeter to add together the voltage drop"
+                        + "\nin each resistor and put your answer below."
+                        + "\nFeel free to try out the other tools as well.");
                 break;
             case(1):
-                lessonTextField.setText("Now the circuit takes two paths.  You’ll notice through\nexperimentation that the current through one path is larger than\nthe other; this is because there is less resistance.  Try to find\nthe resistance of the far right resistor and answer below.\n(Voltage = Current x Resistance)");
+                lessonTextField.setText("Now the circuit takes two paths.  "
+                        + "You’ll notice through\nexperimentation that the "
+                        + "current through one path is larger than\nthe other;"
+                        + " this is because there is less resistance.  Try to "
+                        + "find\nthe resistance of the far right resistor and"
+                        + " answer below.\n(Voltage = Current x Resistance)");
                 break;
             case(2):
-                lessonTextField.setText("This time we have a capacitor.  Much like a battery,\nit stores electrical energy.  However, typically,\ncapacitors disharge their stored energy very quickly.");
+                lessonTextField.setText("This time we have a capacitor.  Much"
+                        + " like a battery,\nit stores electrical energy.  "
+                        + "However, typically,\ncapacitors disharge their "
+                        + "stored energy very quickly.");
                 break;
             case(3):
-                lessonTextField.setText("THIS IS THE SUPER AWESOME 555 CIRCUIT.\n  A 555 Timer is a simple integrated circuit that uses two \nresistors nand a capacitor to control the state of the output.\n  Resistors R1 and R2 controls rate that the \ncapacitor charges and discharges, hence controlling \nthe frequency of the output squarewave \n( a wave with two values that alternate over time)");
+                lessonTextField.setText("THIS IS THE SUPER AWESOME 555 CIRCUIT."
+                        + "\n  A 555 Timer is a simple integrated circuit that "
+                        + "uses two \nresistors nand a capacitor to control the"
+                        + " state of the output.\n  Resistors R1 and R2 "
+                        + "controls rate that the \ncapacitor charges and "
+                        + "discharges, hence controlling \nthe frequency of "
+                        + "the output squarewave \n( a wave with two values "
+                        + "that alternate over time)");
                 break;
         }
     }
     
+    //redraws the tool based on where the mouse is and what tool is selected
     private void circuitPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseDragged
         if(oscIsSelected)
         {
@@ -393,6 +416,7 @@ public class CircuitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_circuitPanelMousePressed
 
+    //moves the tool to appropriate location and does tool functions
     private void circuitPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseReleased
         if(oscIsSelected)
         {
@@ -451,6 +475,8 @@ public class CircuitFrame extends javax.swing.JFrame {
         clearDataPoints();
     }//GEN-LAST:event_circuitPanelMouseReleased
   
+    //returns true if the Tool is close enough to a specified location to change
+    //locations to that position
     public boolean shouldShiftPosition(int toolX, int toolY, int elementX, int elementY)
     {
         toolX += 8;
@@ -463,57 +489,84 @@ public class CircuitFrame extends javax.swing.JFrame {
         return false;
     }
     
+    //makes sure no tools are selected if the mouse leaves the panel
     private void circuitPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circuitPanelMouseExited
         voltIsSelected = false;
         ammIsSelected = false;
         oscIsSelected = false;
     }//GEN-LAST:event_circuitPanelMouseExited
 
+    //creates the apprpriate JOptionPanes for the String in the answerTextField
     private void answerTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerTextFieldActionPerformed
         switch(currentFile)
         {
             case(0):
                 if(answerTextField.getText().equals("10"))
                 {
-                    JOptionPane.showMessageDialog(null, "Good job! Notice how the total voltage drop is equal to the voltage of the battery.\nThis will always happen with circuits that stay connected in one simple loop.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Good job! Notice how "
+                            + "the total voltage drop is equal to the voltage "
+                            + "of the battery.\nThis will always happen with "
+                            + "circuits that stay connected in one simple loop."
+                            + "\nClick next to continue.", "Correct!"
+                            , JOptionPane.INFORMATION_MESSAGE);
                     correctAnswers[0] = true;
                 } 
                 else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make"
+                            + " sure you're entering just the number.", 
+                            "Incorrect", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case(1):
                 if(answerTextField.getText().equals("3"))
                 {
-                    JOptionPane.showMessageDialog(null, "Nice Job!  You may have noticed that this resistor has a larger resistance\nthan the two other resistors, but the current is still larger on the far right path.\nThis is because resistances add when in series.\nClick next to continue.", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Nice Job!  You may "
+                            + "have noticed that this resistor has a larger "
+                            + "resistance\nthan the two other resistors, but "
+                            + "the current is still larger on the far right "
+                            + "path.\nThis is because resistances add when in "
+                            + "series.\nClick next to continue.", "Correct!"
+                            , JOptionPane.INFORMATION_MESSAGE);
                     correctAnswers[1] = true;
                 } 
                 else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make"
+                            + " sure you're entering just the number.", 
+                            "Incorrect", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case(2):
                 if(answerTextField.getText().equals("IDK"))
                 {
-                    JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Congratulatory message!",
+                            "Correct!", JOptionPane.INFORMATION_MESSAGE);
                     correctAnswers[2] = true;
                 }
                 else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make"
+                            + " sure you're entering just the number.", 
+                            "Incorrect", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case(3):
                 if(answerTextField.getText().equals("IDK"))
                 {
-                    JOptionPane.showMessageDialog(null, "Congratulatory message!", "Correct!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Congratulatory message!",
+                            "Correct!", JOptionPane.INFORMATION_MESSAGE);
                     correctAnswers[3] = true;
                 }
                 else
-                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make sure you're entering just the number.", "Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sorry, try again. Make"
+                            + " sure you're entering just the number.", 
+                            "Incorrect", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
         }
         if(allCorrect())
-            JOptionPane.showMessageDialog(null, "Congradulations, you have successfully answered all questions! continue experimenting at your leisure.", "Lesson Complete", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Congradulations, you have"
+                    + " successfully answered all questions! continue "
+                    + "experimenting at your leisure.", "Lesson Complete", 
+                    JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_answerTextFieldActionPerformed
 
+    //returns true if user has correctly answered all the questions
     public boolean allCorrect()
     {
         for(int i = 0; i < NUM_CIRCUITS; i++)

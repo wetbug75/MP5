@@ -24,6 +24,7 @@ public class Tool {
         type = t;
     }
     
+    //returns value as long as it isn't negative
     public String display()
     {
         if(value < 0)
@@ -31,6 +32,7 @@ public class Tool {
         return "" + value;
     }
     
+    //sets value based on type and element
     public void getValue()
     {
         if(type == Type.VOLTMETER)
@@ -41,17 +43,20 @@ public class Tool {
             value = 0;
     }
     
+    //changes element and sets value to appropriate value
     public void setElement(Element e)
     {
         element = e;
         getValue();
     }
     
+    //returns element
     public Element getElement()
     {
         return element;
     }
     
+    //pretty much emptys the tool stored value
     public void emptyTool()
     {
         element.setAllZero();
